@@ -8,7 +8,7 @@ public class Model {
 	
 	public Model() {
 		map = new Map(50, 100);
-		this.display(map);
+//		this.display(map);
 		view = new View(map);
 	}
 	

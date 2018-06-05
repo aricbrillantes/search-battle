@@ -79,6 +79,8 @@ public class Display extends JComponent {
         		
         		if(map.getBlocks()[x][y] instanceof Wall)
         			gg.setColor(Color.BLACK);
+        		else if(map.getBlocks()[x][y] instanceof Character)
+        			gg.setColor(Color.CYAN);
         		else
         			gg.setColor(Color.WHITE);
         		
