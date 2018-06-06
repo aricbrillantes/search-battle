@@ -12,8 +12,9 @@ public class Character extends Block implements Runnable {
 	private int direction = STAY;
 	private Block[][] blocks;
 	
-	public Character(Block[][] blocks) {
+	public Character(Block[][] blocks, int x, int y) {
 		this.blocks = blocks;
+		super.setLocation(x, y);
 		Thread thread = new Thread(this);
 		thread.start();
 	}

@@ -1,5 +1,7 @@
 package game;
 
+import java.util.ArrayList;
+
 public class Map {
 
 	private static final int UP = 0;
@@ -12,12 +14,14 @@ public class Map {
 	private int width;
 	private Block[][] blocks;
 
+	private ArrayList<Character> characters;
 	private Character boi;
 	
 	public Map(int height, int width) {
 		this.height = height;
 		this.width = width;
 		this.blocks = new Block[width][height];
+		this.characters = new ArrayList<Character>();
 		
 		// add walls
 		int x, y;
@@ -29,9 +33,12 @@ public class Map {
 			}
 		}
 		
-		boi = new Character(this.blocks);
-		this.blocks[3][30] = boi;
-		this.blocks[3][30].setLocation(3, 30);
+		characters.add(new Character(this.blocks, 3, 30));
+		this.blocks[3][30] = characters.get(0);
+		characters.add(new Character(this.blocks, 30, 30));
+		this.blocks[30][30] = characters.get(0);
+		characters.add(new Character(this.blocks, 4, 4));
+		this.blocks[4][4] = characters.get(0);
 		this.startGame();
 	}
 	
@@ -49,18 +56,19 @@ public class Map {
 	}
 	
 	private void update() {
-		System.out.println(boi.getX() + "," + boi.getY());
-		if(boi.direction() == UP) {
-			this.moveUp(boi);
-		}
-		else if(boi.direction() == DOWN) {
-			this.moveDown(boi);
-		}
-		else if(boi.direction() == LEFT) {
-			this.moveLeft(boi);
-		}
-		else if(boi.direction() == RIGHT) {
-			this.moveRight(boi);
+		for(Character boi : characters) {
+			if(boi.direction() == UP) {
+				this.moveUp(boi);
+			}
+			else if(boi.direction() == DOWN) {
+				this.moveDown(boi);
+			}
+			else if(boi.direction() == LEFT) {
+				this.moveLeft(boi);
+			}
+			else if(boi.direction() == RIGHT) {
+				this.moveRight(boi);
+			}
 		}
 	}
 	
@@ -80,7 +88,7 @@ public class Map {
 	private void moveDown(Block block) {
 		int x = block.getX();
 		int y = block.getY();
-		if(y > 0 && y < this.height - 1) {
+		if(y < this.height - 1) {
 			this.blocks[x][y] = new Block();
 			this.blocks[x][y + 1] = block;
 			block.setLocation(x, y + 1);
