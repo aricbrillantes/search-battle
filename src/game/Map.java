@@ -35,6 +35,17 @@ public class Map {
 		
 		characters.add(new Character(this.blocks, 3, 30));
 		this.blocks[3][30] = characters.get(0);
+		
+		/**
+		 * this is to test wall collision
+		 * P.S it works as of branch karl-1
+		this.blocks[4][30] = new Wall();
+		this.blocks[2][30] = new Wall();
+		this.blocks[3][31] = new Wall();
+		this.blocks[3][29] = new Wall();
+		**/
+		
+		
 		characters.add(new Character(this.blocks, 30, 30));
 		this.blocks[30][30] = characters.get(0);
 		characters.add(new Character(this.blocks, 4, 4));
@@ -78,7 +89,7 @@ public class Map {
 		// change this because i have assumed that there are walls in the edges of the map
 		// this so far does not accept moves to the other side of the map through the edges,
 		// this will be updated to have that feature soon
-		if(y > 0 && y < this.height - 2) {
+		if(y > 0 && y < this.height - 2 && !(this.getBlocks()[x][y-1] instanceof Wall)) {
 			this.blocks[x][y] = new Block();
 			this.blocks[x][y - 1] = block;
 			block.setLocation(x, y - 1);
@@ -88,7 +99,7 @@ public class Map {
 	private void moveDown(Block block) {
 		int x = block.getX();
 		int y = block.getY();
-		if(y < this.height - 1) {
+		if(y < this.height - 1 && !(this.getBlocks()[x][y+1] instanceof Wall)) {
 			this.blocks[x][y] = new Block();
 			this.blocks[x][y + 1] = block;
 			block.setLocation(x, y + 1);
@@ -98,7 +109,7 @@ public class Map {
 	private void moveLeft(Block block) {
 		int x = block.getX();
 		int y = block.getY();
-		if(x > 0 && x < this.width - 1) {
+		if(x > 0 && x < this.width - 1 && !(this.getBlocks()[x-1][y] instanceof Wall)) {
 			this.blocks[x][y] = new Block();
 			this.blocks[x - 1][y] = block;
 			block.setLocation(x - 1, y);
@@ -108,7 +119,7 @@ public class Map {
 	private void moveRight(Block block) {
 		int x = block.getX();
 		int y = block.getY();
-		if(x < this.width - 1) {
+		if(x < this.width - 1 && !(this.getBlocks()[x+1][y] instanceof Wall)) {
 			this.blocks[x][y] = new Block();
 			this.blocks[x + 1][y] = block;
 			block.setLocation(x + 1, y);
