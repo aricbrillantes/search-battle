@@ -6,6 +6,7 @@ public class Map {
 	private static final int DOWN = 1;
 	private static final int LEFT = 2;
 	private static final int RIGHT = 3;
+	private static final int STAY = 4;
 	
 	private int height;
 	private int width;
@@ -40,7 +41,7 @@ public class Map {
 			public void run() {
                 while (true) {
                 	update();
-                    try {Thread.sleep(1000);} catch (Exception ex) {}
+                    try {Thread.sleep(100);} catch (Exception ex) {}
                 }
 			}
 		});
@@ -52,29 +53,58 @@ public class Map {
 		if(boi.direction() == UP) {
 			this.moveUp(boi);
 		}
+		else if(boi.direction() == DOWN) {
+			this.moveDown(boi);
+		}
+		else if(boi.direction() == LEFT) {
+			this.moveLeft(boi);
+		}
+		else if(boi.direction() == RIGHT) {
+			this.moveRight(boi);
+		}
 	}
 	
 	private void moveUp(Block block) {
 		int x = block.getX();
 		int y = block.getY();
-		if(y > 1 && y < this.height - 2) {
+		// change this because i have assumed that there are walls in the edges of the map
+		// this so far does not accept moves to the other side of the map through the edges,
+		// this will be updated to have that feature soon
+		if(y > 0 && y < this.height - 2) {
 			this.blocks[x][y] = new Block();
 			this.blocks[x][y - 1] = block;
 			block.setLocation(x, y - 1);
-        	System.out.println("hello");
 		}
 	}
 	
 	private void moveDown(Block block) {
-		
+		int x = block.getX();
+		int y = block.getY();
+		if(y > 0 && y < this.height - 1) {
+			this.blocks[x][y] = new Block();
+			this.blocks[x][y + 1] = block;
+			block.setLocation(x, y + 1);
+		}
 	}
 	
 	private void moveLeft(Block block) {
-		
+		int x = block.getX();
+		int y = block.getY();
+		if(x > 0 && x < this.width - 1) {
+			this.blocks[x][y] = new Block();
+			this.blocks[x - 1][y] = block;
+			block.setLocation(x - 1, y);
+		}
 	}
 	
 	private void moveRight(Block block) {
-		
+		int x = block.getX();
+		int y = block.getY();
+		if(x < this.width - 1) {
+			this.blocks[x][y] = new Block();
+			this.blocks[x + 1][y] = block;
+			block.setLocation(x + 1, y);
+		}
 	}
 	
 	
