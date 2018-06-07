@@ -7,8 +7,11 @@ public class Model {
 	private Map map;
 	
 	public Model() {
-		map = new Map(50, 100);
+//		map = new Map(50, 100);
 //		this.display(map);
+		Reader reader = new Reader();
+		map = reader.getMap("map.txt");
+		map.startGame();
 		view = new View(map);
 	}
 	
