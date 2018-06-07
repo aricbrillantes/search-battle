@@ -19,7 +19,7 @@ public class Map {
 	
 	public Map(int height, int width) {
 		this.setup(height, width);
-		this.startGame();
+//		this.startGame();
 	}
 	
 	/**
@@ -32,7 +32,7 @@ public class Map {
 		this.width = width;
 		this.blocks = new Block[this.width][this.height];
 		this.characters = new ArrayList<Character>();
-		this.setMap();
+//		this.setMap();
 	}
 	
 	/**
@@ -44,29 +44,17 @@ public class Map {
 		for(y = 0; y < this.height; y++) {
 			for(x = 0; x < this.width; x++) {
 				if(y == 0 || x == 0 || y == this.height - 1 || x == this.width - 1) {
-					this.blocks[x][y] = new Wall();
+					this.addWall(x, y);
 				}
 			}
 		}
-		
-		/**
-		 * this is to test wall collision
-		 * P.S it works as of branch karl-1
-		this.blocks[4][30] = new Wall();
-		this.blocks[2][30] = new Wall();
-		this.blocks[3][31] = new Wall();
-		this.blocks[3][29] = new Wall();
-		**/
 
-		characters.add(new Character(this.blocks, 3, 30));
-		characters.get(characters.size() - 1).setColor(Color.CYAN);;
-		characters.add(new Character(this.blocks, 30, 30));
-		characters.get(characters.size() - 1).setColor(Color.CYAN);;
-		characters.add(new Character(this.blocks, 4, 4));
-		characters.get(characters.size() - 1).setColor(Color.CYAN);;
+		this.addCharacter(2, 2);
+		this.addCharacter(2, 2);
+		this.addCharacter(2, 2);
+		this.addCharacter(2, 2);
 		characters.add(new BotAndy(this.blocks, 10, 10));
-		characters.get(characters.size() - 1).setColor(Color.GREEN);;
-		
+		characters.get(characters.size() - 1).setColor(Color.GREEN);
 	}
 	
 	/**
@@ -85,6 +73,23 @@ public class Map {
 		game.start();
 	}
 	
+	public void addWall(int x, int y) {
+		this.blocks[x][y] = new Wall();
+	}
+	
+	public void addCharacter(int x, int y) {
+		characters.add(new Character(this.blocks, x, y));
+		characters.get(characters.size() - 1).setColor(Color.CYAN);
+	}
+	
+	public void addCharacter(int x, int y, Color color) {
+		characters.add(new Character(this.blocks, x, y));
+		characters.get(characters.size() - 1).setColor(color);
+	}
+	
+	/**
+	 * This function checks all the Characters and get their requestion movement direction and applies it.
+	 */
 	private void update() {
 		for(Character boi : characters) {
 			if(boi.direction() == UP) {
@@ -102,16 +107,24 @@ public class Map {
 		}
 	}
 	
+	/**
+	 * This function moves a block one block up.
+	 * @param block This is the block to be moved.
+	 */
 	private void moveUp(Block block) {
 		int x = block.getX();
 		int y = block.getY();
-		if(y > 0 && y < this.height - 2 && !(this.getBlocks()[x][y-1] instanceof Wall)) {
+		if(y > 0 && !(this.getBlocks()[x][y-1] instanceof Wall)) {
 			this.blocks[x][y] = new Block();
 			this.blocks[x][y - 1] = block;
 			block.setLocation(x, y - 1);
 		}
 	}
-	
+
+	/**
+	 * This function moves a block one block down.
+	 * @param block This is the block to be moved.
+	 */
 	private void moveDown(Block block) {
 		int x = block.getX();
 		int y = block.getY();
@@ -121,17 +134,25 @@ public class Map {
 			block.setLocation(x, y + 1);
 		}
 	}
-	
+
+	/**
+	 * This function moves a block one block left.
+	 * @param block This is the block to be moved.
+	 */
 	private void moveLeft(Block block) {
 		int x = block.getX();
 		int y = block.getY();
-		if(x > 0 && x < this.width - 1 && !(this.getBlocks()[x-1][y] instanceof Wall)) {
+		if(x > 0 && !(this.getBlocks()[x-1][y] instanceof Wall)) {
 			this.blocks[x][y] = new Block();
 			this.blocks[x - 1][y] = block;
 			block.setLocation(x - 1, y);
 		}
 	}
-	
+
+	/**
+	 * This function moves a block one block right.
+	 * @param block This is the block to be moved.
+	 */
 	private void moveRight(Block block) {
 		int x = block.getX();
 		int y = block.getY();

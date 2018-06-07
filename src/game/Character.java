@@ -18,11 +18,17 @@ public class Character extends Block implements Runnable {
 		this.start();
 	}
 	
+	/**
+	 * This function starts the thread of Character that does that thinking.
+	 */
 	public void start() {
 		Thread thread = new Thread(this);
 		thread.start();
 	}
 	
+	/**
+	 * This function is what the thread will contain.
+	 */
 	@Override
 	public void run() {
 		while(true) {
@@ -31,6 +37,10 @@ public class Character extends Block implements Runnable {
 		}
 	}
 	
+	/**
+	 * This function should contain the search methods which the character will
+	 * make a decision from and choose a direction to go to.
+	 */
 	protected void think() {
 		direction = (int)(Math.random() * 4);
 	}
