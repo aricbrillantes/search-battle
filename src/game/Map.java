@@ -1,5 +1,6 @@
 package game;
 
+import java.awt.Color;
 import java.util.ArrayList;
 
 public class Map {
@@ -15,14 +16,29 @@ public class Map {
 	private Block[][] blocks;
 
 	private ArrayList<Character> characters;
-	private Character boi;
 	
 	public Map(int height, int width) {
+		this.setup(height, width);
+		this.startGame();
+	}
+	
+	/**
+	 * This function sets up the game.
+	 * @param height
+	 * @param width
+	 */
+	public void setup(int height, int width) {
 		this.height = height;
 		this.width = width;
-		this.blocks = new Block[width][height];
+		this.blocks = new Block[this.width][this.height];
 		this.characters = new ArrayList<Character>();
-		
+		this.setMap();
+	}
+	
+	/**
+	 * This function sets up the game map and it's entities.
+	 */
+	public void setMap() {
 		// add walls
 		int x, y;
 		for(y = 0; y < this.height; y++) {
@@ -33,9 +49,6 @@ public class Map {
 			}
 		}
 		
-		characters.add(new Character(this.blocks, 3, 30));
-		this.blocks[3][30] = characters.get(0);
-		
 		/**
 		 * this is to test wall collision
 		 * P.S it works as of branch karl-1
@@ -44,15 +57,21 @@ public class Map {
 		this.blocks[3][31] = new Wall();
 		this.blocks[3][29] = new Wall();
 		**/
-		
-		
+
+		characters.add(new Character(this.blocks, 3, 30));
+		characters.get(characters.size() - 1).setColor(Color.CYAN);;
 		characters.add(new Character(this.blocks, 30, 30));
-		this.blocks[30][30] = characters.get(0);
+		characters.get(characters.size() - 1).setColor(Color.CYAN);;
 		characters.add(new Character(this.blocks, 4, 4));
-		this.blocks[4][4] = characters.get(0);
-		this.startGame();
+		characters.get(characters.size() - 1).setColor(Color.CYAN);;
+		characters.add(new BotAndy(this.blocks, 10, 10));
+		characters.get(characters.size() - 1).setColor(Color.GREEN);;
+		
 	}
 	
+	/**
+	 * This function starts a thread that will run continuously updating the game.
+	 */
 	public void startGame() {
 		Thread game = new Thread(new Runnable() {
 			@Override
@@ -86,9 +105,6 @@ public class Map {
 	private void moveUp(Block block) {
 		int x = block.getX();
 		int y = block.getY();
-		// change this because i have assumed that there are walls in the edges of the map
-		// this so far does not accept moves to the other side of the map through the edges,
-		// this will be updated to have that feature soon
 		if(y > 0 && y < this.height - 2 && !(this.getBlocks()[x][y-1] instanceof Wall)) {
 			this.blocks[x][y] = new Block();
 			this.blocks[x][y - 1] = block;

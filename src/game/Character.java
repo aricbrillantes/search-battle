@@ -1,20 +1,24 @@
 package game;
 
-import java.util.Random;
+import java.awt.Color;
 
 public class Character extends Block implements Runnable {
 
-	private static final int UP = 0;
-	private static final int DOWN = 1;
-	private static final int LEFT = 2;
-	private static final int RIGHT = 3;
-	private static final int STAY = 4;
-	private int direction = STAY;
-	private Block[][] blocks;
+	protected static final int UP = 0;
+	protected static final int DOWN = 1;
+	protected static final int LEFT = 2;
+	protected static final int RIGHT = 3;
+	protected static final int STAY = 4;
+	protected int direction = STAY;
+	protected Block[][] blocks;
 	
 	public Character(Block[][] blocks, int x, int y) {
 		this.blocks = blocks;
 		super.setLocation(x, y);
+		this.start();
+	}
+	
+	public void start() {
 		Thread thread = new Thread(this);
 		thread.start();
 	}
@@ -27,8 +31,8 @@ public class Character extends Block implements Runnable {
 		}
 	}
 	
-	public void think() {
-		direction = (int)(Math.random() * 4);	
+	protected void think() {
+		direction = (int)(Math.random() * 4);
 	}
 	
 	public int direction() {
