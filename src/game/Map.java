@@ -91,6 +91,10 @@ public class Map {
 		this.blocks[x][y] = new Treasure();
 	}
 	
+	public void addEnemy(int x, int y) {
+		characters.add(new Enemy(blocks, x, y));
+	}
+	
 	/**
 	 * This function checks all the Characters and get their requestion movement direction and applies it.
 	 */
