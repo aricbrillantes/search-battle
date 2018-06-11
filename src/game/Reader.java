@@ -8,6 +8,7 @@ public class Reader {
 
 	protected static final int SPACE = 0;
 	protected static final int WALL = 1;
+	protected static final int TREASURE = 2;
 	
 	public Map getMap(String fileName) {
 		File file = new File(fileName);
@@ -26,6 +27,9 @@ public class Reader {
 					}
 					else if(i == WALL) {
 						map.addWall(x, y);
+					}
+					else if(i == TREASURE) {
+						map.addTreasure(x, y);
 					}
 				}	
 			}

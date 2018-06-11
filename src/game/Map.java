@@ -53,7 +53,7 @@ public class Map {
 		this.addCharacter(2, 2);
 		this.addCharacter(2, 2);
 		this.addCharacter(2, 2);
-		characters.add(new BotAndy(this.blocks, 10, 10));
+		characters.add(new Character(this.blocks, 10, 10));
 		characters.get(characters.size() - 1).setColor(Color.GREEN);
 	}
 	
@@ -85,6 +85,10 @@ public class Map {
 	public void addCharacter(int x, int y, Color color) {
 		characters.add(new Character(this.blocks, x, y));
 		characters.get(characters.size() - 1).setColor(color);
+	}
+	
+	public void addTreasure(int x, int y) {
+		this.blocks[x][y] = new Treasure();
 	}
 	
 	/**
