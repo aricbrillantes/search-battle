@@ -87,12 +87,22 @@ public class Map {
 		characters.get(characters.size() - 1).setColor(color);
 	}
 	
+	public void addBotAndy(int x, int y) {
+		characters.add(new BotAndy(blocks, x, y));
+	}
+	
 	public void addTreasure(int x, int y) {
 		this.blocks[x][y] = new Treasure();
 	}
 	
 	public void addEnemy(int x, int y) {
 		characters.add(new Enemy(blocks, x, y));
+	}
+	
+	public void displayScores() {
+		for(Character c : characters) {
+			System.out.println(c.getPoints());
+		}
 	}
 	
 	/**
@@ -113,6 +123,7 @@ public class Map {
 				this.moveRight(boi);
 			}
 		}
+		this.displayScores();
 	}
 	
 	/**

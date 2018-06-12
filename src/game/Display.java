@@ -81,6 +81,8 @@ public class Display extends JComponent {
         			gg.setColor(Color.BLACK);
         		else if(map.getBlocks()[x][y] instanceof Character)
         			gg.setColor(map.getBlocks()[x][y].getColor());
+        		else if(map.getBlocks()[x][y] instanceof BotAndy)
+        			gg.setColor(map.getBlocks()[x][y].getColor());
         		else if(map.getBlocks()[x][y] instanceof Treasure)
         			gg.setColor(map.getBlocks()[x][y].getColor());
         		else
