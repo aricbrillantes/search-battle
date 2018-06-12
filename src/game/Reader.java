@@ -11,6 +11,7 @@ public class Reader {
 	protected static final int TREASURE = 2;
 	protected static final int BOT = 3;
 	protected static final int ENEMY = 4;
+	protected static final int ANDY = 5;
 	
 	public Map getMap(String fileName) {
 		File file = new File(fileName);
@@ -38,6 +39,9 @@ public class Reader {
 					}
 					else if(i == ENEMY) {
 						map.addEnemy(x, y);
+					}
+					else if(i == ANDY) {
+						map.addBotAndy(x, y);
 					}
 				}	
 			}
