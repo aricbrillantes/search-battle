@@ -8,6 +8,9 @@ public class Reader {
 
 	protected static final int SPACE = 0;
 	protected static final int WALL = 1;
+	protected static final int TREASURE = 2;
+	protected static final int BOT = 3;
+	protected static final int ENEMY = 4;
 	
 	public Map getMap(String fileName) {
 		File file = new File(fileName);
@@ -26,6 +29,15 @@ public class Reader {
 					}
 					else if(i == WALL) {
 						map.addWall(x, y);
+					}
+					else if(i == TREASURE) {
+						map.addTreasure(x, y);
+					}
+					else if(i == BOT) {
+						map.addCharacter(x, y);
+					}
+					else if(i == ENEMY) {
+						map.addEnemy(x, y);
 					}
 				}	
 			}
