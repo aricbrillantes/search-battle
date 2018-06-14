@@ -99,6 +99,16 @@ public class Map {
 		characters.add(new Enemy(blocks, x, y));
 	}
 	
+	/**
+	 * This function checks if the block at x and y is an instance of Treasure.
+	 * @param x
+	 * @param y
+	 * @return
+	 */
+	public Boolean isTreasure(int x, int y) {
+		return this.blocks[x][y] instanceof Treasure;
+	}
+	
 	public void displayScores() {
 		for(Character c : characters) {
 			System.out.println(c.getPoints());
@@ -130,13 +140,16 @@ public class Map {
 	 * This function moves a block one block up.
 	 * @param block This is the block to be moved.
 	 */
-	private void moveUp(Block block) {
-		int x = block.getX();
-		int y = block.getY();
+	private void moveUp(Character character) {
+		int x = character.getX();
+		int y = character.getY();
 		if(y > 0 && !(this.getBlocks()[x][y-1] instanceof Wall)) {
+			if(isTreasure(x, y - 1)) {
+				character.addPoints(1);
+			}
 			this.blocks[x][y] = new Block();
-			this.blocks[x][y - 1] = block;
-			block.setLocation(x, y - 1);
+			this.blocks[x][y - 1] = character;
+			character.setLocation(x, y - 1);
 		}
 	}
 
@@ -144,13 +157,16 @@ public class Map {
 	 * This function moves a block one block down.
 	 * @param block This is the block to be moved.
 	 */
-	private void moveDown(Block block) {
-		int x = block.getX();
-		int y = block.getY();
+	private void moveDown(Character character) {
+		int x = character.getX();
+		int y = character.getY();
 		if(y < this.height - 1 && !(this.getBlocks()[x][y+1] instanceof Wall)) {
+			if(isTreasure(x, y + 1)) {
+				character.addPoints(1);
+			}
 			this.blocks[x][y] = new Block();
-			this.blocks[x][y + 1] = block;
-			block.setLocation(x, y + 1);
+			this.blocks[x][y + 1] = character;
+			character.setLocation(x, y + 1);
 		}
 	}
 
@@ -158,13 +174,16 @@ public class Map {
 	 * This function moves a block one block left.
 	 * @param block This is the block to be moved.
 	 */
-	private void moveLeft(Block block) {
-		int x = block.getX();
-		int y = block.getY();
+	private void moveLeft(Character character) {
+		int x = character.getX();
+		int y = character.getY();
 		if(x > 0 && !(this.getBlocks()[x-1][y] instanceof Wall)) {
+			if(isTreasure(x - 1, y)) {
+				character.addPoints(1);
+			}
 			this.blocks[x][y] = new Block();
-			this.blocks[x - 1][y] = block;
-			block.setLocation(x - 1, y);
+			this.blocks[x - 1][y] = character;
+			character.setLocation(x - 1, y);
 		}
 	}
 
@@ -172,13 +191,16 @@ public class Map {
 	 * This function moves a block one block right.
 	 * @param block This is the block to be moved.
 	 */
-	private void moveRight(Block block) {
-		int x = block.getX();
-		int y = block.getY();
+	private void moveRight(Character character) {
+		int x = character.getX();
+		int y = character.getY();
 		if(x < this.width - 1 && !(this.getBlocks()[x+1][y] instanceof Wall)) {
+			if(isTreasure(x + 1, y)) {
+				character.addPoints(1);
+			}
 			this.blocks[x][y] = new Block();
-			this.blocks[x + 1][y] = block;
-			block.setLocation(x + 1, y);
+			this.blocks[x + 1][y] = character;
+			character.setLocation(x + 1, y);
 		}
 	}
 	
