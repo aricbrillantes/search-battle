@@ -77,6 +77,10 @@ public class Map {
 		this.blocks[x][y] = new Wall();
 	}
 	
+	public void addSpace(int x, int y) {
+		this.blocks[x][y] = new Block();
+	}
+	
 	public void addCharacter(int x, int y) {
 		characters.add(new Character(this.blocks, x, y));
 		characters.get(characters.size() - 1).setColor(Color.CYAN);
