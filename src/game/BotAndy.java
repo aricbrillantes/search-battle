@@ -11,7 +11,8 @@ public class BotAndy extends Character {
 	
 	@Override
 	public void think() {
-		direction = (int)(Math.random() * 2);
+//		direction = (int)(Math.random() * 2);
+		direction = STAY;
 	}
 
 }
