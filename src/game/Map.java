@@ -80,15 +80,18 @@ public class Map {
 	public void addCharacter(int x, int y) {
 		characters.add(new Character(this.blocks, x, y));
 		characters.get(characters.size() - 1).setColor(Color.CYAN);
+		blocks[x][y] = characters.get(characters.size() - 1);
 	}
 	
 	public void addCharacter(int x, int y, Color color) {
 		characters.add(new Character(this.blocks, x, y));
 		characters.get(characters.size() - 1).setColor(color);
+		blocks[x][y] = characters.get(characters.size() - 1);
 	}
 	
 	public void addBotAndy(int x, int y) {
 		characters.add(new BotAndy(blocks, x, y));
+		blocks[x][y] = characters.get(characters.size() - 1);
 	}
 	
 	public void addTreasure(int x, int y) {
@@ -97,6 +100,7 @@ public class Map {
 	
 	public void addEnemy(int x, int y) {
 		characters.add(new Enemy(blocks, x, y));
+		blocks[x][y] = characters.get(characters.size() - 1);
 	}
 	
 	/**
@@ -203,7 +207,6 @@ public class Map {
 			character.setLocation(x + 1, y);
 		}
 	}
-	
 	
 	public Block[][] getBlocks() {
 		return blocks;
