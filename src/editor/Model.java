@@ -18,14 +18,18 @@ public class Model {
 	
 	private Editor editor;
 	private Map map;
+	private int tool = SPACE;
+	
+	private String fileName;
 	
 	public Model() {
 		Reader reader = new Reader();
-		map = reader.getMap("map.txt");
-		editor = new Editor();
+		map = reader.getMap("map1.txt");
+		editor = new Editor(new Controller(this));
 		editor.setVisible(true);
 		Display display = new Display(map);
 		editor.setContentPane(display);
+		fileName = "map1.txt";
 		
 		display.addMouseListener(new MouseAdapter() {
 			@Override
@@ -39,7 +43,7 @@ public class Model {
 	}
 	
 	public void add(int x, int y) {
-		switch(editor.getTool()) {
+		switch(tool) {
 			case SPACE:
 				this.addSpace(x, y);
 				break;
@@ -47,27 +51,43 @@ public class Model {
 				this.addWall(x, y);
 				break;
 			case TREASURE:
-//				this.addWall(x, y);
+				this.addTreasure(x, y);
 				break;
 			case BOT:
-//				this.addWall(x, y);
+				this.addBot(x, y);
 				break;
 			case ENEMY:
-//				this.addWall(x, y);
+				this.addEnemy(x, y);
 				break;
 		}
+	}
+	
+	public void addSpace(int x, int y) {
+		map.addSpace(x, y);
 	}
 	
 	public void addWall(int x, int y) {
 		map.addWall(x, y);
 	}
 	
-	public void addTreasre(int x, int y) {
+	public void addTreasure(int x, int y) {
 		map.addTreasure(x, y);
 	}
 	
-	public void addSpace(int x, int y) {
-		map.addSpace(x, y);
+	public void addBot(int x, int y) {
+		map.addBotAndy(x, y);
+	}
+	
+	public void addEnemy(int x, int y) {
+		map.addEnemy(x, y);
+	}
+	
+	public void setTool(int tool) {
+		this.tool = tool;
+	}
+	
+	public void saveMap() {
+		new Printer(map, fileName);
 	}
 
 }
