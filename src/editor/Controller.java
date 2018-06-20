@@ -39,19 +39,19 @@ public class Controller {
 	}
 	
 	public void selectBotAndy() {
-		
+		model.setTool(ANDY);
 	}
 	
 	public void selectBotBrad() {
-		
+		model.setTool(BRAD);
 	}
 	
 	public void selectBotChip() {
-		
+		model.setTool(CHIP);
 	}
 	
 	public void selectBotDave() {
-		
+		model.setTool(DAVE);
 	}
 	
 }

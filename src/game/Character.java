@@ -24,6 +24,7 @@ public class Character extends Block implements Runnable {
 		super.setLocation(x, y);
 		this.start();
 		this.points = 0;
+		this.direction = STAY;
 	}
 	
 	/**

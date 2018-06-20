@@ -164,6 +164,9 @@ public class Map {
 			else if(boi.direction() == RIGHT) {
 				this.moveRight(boi);
 			}
+			else {
+				this.stay(boi);
+			}
 		}
 		this.displayScores();
 	}
@@ -234,6 +237,12 @@ public class Map {
 			this.blocks[x + 1][y] = character;
 			character.setLocation(x + 1, y);
 		}
+	}
+	
+	private void stay(Character character) {
+		int x = character.getX();
+		int y = character.getY();
+		this.blocks[x][y] = character;
 	}
 	
 	public Block[][] getBlocks() {

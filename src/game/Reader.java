@@ -40,7 +40,7 @@ public class Reader {
 							map.addWall(x, y);
 							break;
 						case TREASURE:
-							map.addWall(x, y);
+							map.addTreasure(x, y);
 							break;
 						case BOT:
 							map.addCharacter(x, y);
