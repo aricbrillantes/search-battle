@@ -10,7 +10,8 @@ public class Model {
 //		map = new Map(50, 100);
 //		this.display(map);
 		Reader reader = new Reader();
-		map = reader.getMap("map.txt");
+//		map = reader.getMap("map.txt");
+		map = reader.getMap("map1.txt");
 		map.startGame();
 		view = new View(map);
 	}

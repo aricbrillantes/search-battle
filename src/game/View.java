@@ -1,11 +1,14 @@
 package game;
 
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 public class View {
 	
+	JFrame frame;
+	
 	public View(Map map) {
-		JFrame frame = new JFrame();
+		frame = new JFrame();
 		frame.setSize(1000, 500);
 		frame.setExtendedState(java.awt.Frame.MAXIMIZED_BOTH);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
