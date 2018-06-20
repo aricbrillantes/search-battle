@@ -15,6 +15,9 @@ public class Model {
 	private static final int BOT = 3;
 	private static final int ENEMY = 4;
 	private static final int ANDY = 5;
+	private static final int BRAD = 6;
+	private static final int CHIP = 7;
+	private static final int DAVE = 8;
 	
 	private Editor editor;
 	private Map map;
@@ -59,6 +62,18 @@ public class Model {
 			case ENEMY:
 				this.addEnemy(x, y);
 				break;
+			case ANDY:
+				this.addBotAndy(x, y);
+				break;
+			case BRAD:
+				this.addBotBrad(x, y);
+				break;
+			case CHIP:
+				this.addBotChip(x, y);
+				break;
+			case DAVE:
+				this.addBotDave(x, y);
+				break;
 		}
 	}
 	
@@ -80,6 +95,22 @@ public class Model {
 	
 	public void addEnemy(int x, int y) {
 		map.addEnemy(x, y);
+	}
+	
+	public void addBotAndy(int x, int y) {
+		map.addBotAndy(x, y);
+	}
+	
+	public void addBotBrad(int x, int y) {
+		map.addBotBrad(x, y);
+	}
+	
+	public void addBotChip(int x, int y) {
+		map.addBotChip(x, y);
+	}
+	
+	public void addBotDave(int x, int y) {
+		map.addBotDave(x, y);
 	}
 	
 	public void setTool(int tool) {
