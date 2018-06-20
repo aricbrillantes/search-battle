@@ -97,6 +97,38 @@ public class Editor extends JFrame {
 		});
 		mnTool.add(mntmEnemy);
 		
+		JMenuItem mntmBotandy = new JMenuItem("BotAndy");
+		mntmBotandy.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				controller.selectBotAndy();
+			}
+		});
+		mnTool.add(mntmBotandy);
+		
+		JMenuItem mntmBotbrad = new JMenuItem("BotBrad");
+		mntmBotbrad.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				controller.selectBotBrad();
+			}
+		});
+		mnTool.add(mntmBotbrad);
+		
+		JMenuItem mntmBotChip = new JMenuItem("BotChip");
+		mntmBotChip.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				controller.selectBotChip();
+			}
+		});
+		mnTool.add(mntmBotChip);
+		
+		JMenuItem mntmBotdave = new JMenuItem("BotDave");
+		mntmBotdave.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				controller.selectBotDave();
+			}
+		});
+		mnTool.add(mntmBotdave);
+		
 		JMenu mnHelp = new JMenu("Help");
 		menuBar.add(mnHelp);
 		contentPane = new JPanel();

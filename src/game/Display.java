@@ -8,6 +8,8 @@ import java.util.ArrayList;
 
 import javax.swing.JComponent;
 
+import bots.BotAndy;
+
 public class Display extends JComponent {
 	
 	private Map map;

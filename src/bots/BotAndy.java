@@ -1,6 +1,9 @@
-package game;
+package bots;
 
 import java.awt.Color;
+
+import game.Block;
+import game.Character;
 
 public class BotAndy extends Character {
 

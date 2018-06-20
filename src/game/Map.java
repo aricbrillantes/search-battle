@@ -3,6 +3,11 @@ package game;
 import java.awt.Color;
 import java.util.ArrayList;
 
+import bots.BotAndy;
+import bots.BotBrad;
+import bots.BotChip;
+import bots.BotDave;
+
 public class Map {
 
 	private static final int UP = 0;
@@ -93,17 +98,36 @@ public class Map {
 		blocks[x][y] = characters.get(characters.size() - 1);
 	}
 	
-	public void addBotAndy(int x, int y) {
-		characters.add(new BotAndy(blocks, x, y));
-		blocks[x][y] = characters.get(characters.size() - 1);
-	}
-	
 	public void addTreasure(int x, int y) {
 		this.blocks[x][y] = new Treasure();
 	}
 	
 	public void addEnemy(int x, int y) {
 		characters.add(new Enemy(blocks, x, y));
+		blocks[x][y] = characters.get(characters.size() - 1);
+	}
+	
+	public void addBotAndy(int x, int y) {
+		characters.add(new BotAndy(blocks, x, y));
+		characters.get(characters.size() - 1).setColor(Color.GREEN);
+		blocks[x][y] = characters.get(characters.size() - 1);
+	}
+	
+	public void addBotBrad(int x, int y) {
+		characters.add(new BotBrad(blocks, x, y));
+		characters.get(characters.size() - 1).setColor(Color.PINK);
+		blocks[x][y] = characters.get(characters.size() - 1);
+	}
+	
+	public void addBotChip(int x, int y) {
+		characters.add(new BotChip(blocks, x, y));
+		characters.get(characters.size() - 1).setColor(Color.ORANGE);
+		blocks[x][y] = characters.get(characters.size() - 1);
+	}
+	
+	public void addBotDave(int x, int y) {
+		characters.add(new BotDave(blocks, x, y));
+		characters.get(characters.size() - 1).setColor(Color.MAGENTA);
 		blocks[x][y] = characters.get(characters.size() - 1);
 	}
 	

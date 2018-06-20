@@ -8,6 +8,9 @@ public class Controller {
 	private static final int BOT = 3;
 	private static final int ENEMY = 4;
 	private static final int ANDY = 5;
+	private static final int BRAD = 6;
+	private static final int CHIP = 7;
+	private static final int DAVE = 8;
 
 	private Model model;
 	
@@ -33,6 +36,22 @@ public class Controller {
 	
 	public void selectEnemy() {
 		model.setTool(ENEMY);
+	}
+	
+	public void selectBotAndy() {
+		
+	}
+	
+	public void selectBotBrad() {
+		
+	}
+	
+	public void selectBotChip() {
+		
+	}
+	
+	public void selectBotDave() {
+		
 	}
 	
 }
