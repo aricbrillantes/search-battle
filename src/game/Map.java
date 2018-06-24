@@ -160,16 +160,16 @@ public class Map {
 		
 		for(Character boi : characters) {
 			if(!boi.moveList.isEmpty()) {
-				System.out.println("movelist");
+//				System.out.println("movelist");
 				direction = boi.moveList.get(0);
 				boi.moveList.remove(0);
 			}
 			else if(boi.move != NONE) {
-				System.out.println("move");
+//				System.out.println("move");
 				direction = boi.getMove();
 			}
 			else {
-				System.out.println("direction");
+//				System.out.println("direction");
 				direction = boi.getDirection();
 			}
 			
@@ -191,7 +191,7 @@ public class Map {
 			}
 			
 		}
-		this.displayScores();
+//		this.displayScores();
 	}
 	
 	/**

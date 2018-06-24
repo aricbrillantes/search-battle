@@ -23,16 +23,14 @@ public class Model {
 	private Display display;
 	private Map map;
 	private int tool = SPACE;
-	
 	private String fileName;
 	
 	public Model() {
-		this.setMap("map1.txt");
+		this.setMap("map.txt");
 	}
 	
 	public void setMap(String fileName) {
-		Reader reader = new Reader();
-		map = reader.getMap(fileName);
+		map = Reader.getMap(fileName);
 		editor = new Editor(new Controller(this));
 		editor.setVisible(true);
 		display = new Display(map);
@@ -50,8 +48,7 @@ public class Model {
 	
 	public void openMap(String fileName) {
 		this.fileName = fileName;
-		Reader reader = new Reader();
-		map = reader.getMap(fileName);
+		map = Reader.getMap(fileName);
 		display.setMap(map);
 	}
 	
