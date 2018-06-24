@@ -22,6 +22,10 @@ public class Controller {
 		model.saveMap();
 	}
 	
+	public void openMap(String fileName) {
+		model.openMap(fileName);
+	}
+	
 	public void selectSpace() {
 		model.setTool(SPACE);
 	}

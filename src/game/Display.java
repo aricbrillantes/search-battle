@@ -124,6 +124,10 @@ public class Display extends JComponent {
         }
 
 	}
+	
+	public void setMap(Map map) {
+		this.map = map;
+	}
     
     public int[] getCoordinates(int x, int y) {
     	int[] coordinates = new int[2];
