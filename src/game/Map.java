@@ -15,6 +15,7 @@ public class Map {
 	private static final int LEFT = 2;
 	private static final int RIGHT = 3;
 	private static final int STAY = 4;
+	private static final int NONE = 4;
 	
 	private int height;
 	private int width;
@@ -66,6 +67,9 @@ public class Map {
 	 * This function starts a thread that will run continuously updating the game.
 	 */
 	public void startGame() {
+		for(Character c : characters) {
+			c.start();
+		}
 		Thread game = new Thread(new Runnable() {
 			@Override
 			public void run() {
@@ -151,22 +155,41 @@ public class Map {
 	 * This function checks all the Characters and get their requestion movement direction and applies it.
 	 */
 	private void update() {
+		
+		int direction = STAY;
+		
 		for(Character boi : characters) {
-			if(boi.direction() == UP) {
+			if(!boi.moveList.isEmpty()) {
+				System.out.println("movelist");
+				direction = boi.moveList.get(0);
+				boi.moveList.remove(0);
+			}
+			else if(boi.move != NONE) {
+				System.out.println("move");
+				direction = boi.getMove();
+			}
+			else {
+				System.out.println("direction");
+				direction = boi.getDirection();
+			}
+			
+
+			if(direction == UP) {
 				this.moveUp(boi);
 			}
-			else if(boi.direction() == DOWN) {
+			else if(direction == DOWN) {
 				this.moveDown(boi);
 			}
-			else if(boi.direction() == LEFT) {
+			else if(direction == LEFT) {
 				this.moveLeft(boi);
 			}
-			else if(boi.direction() == RIGHT) {
+			else if(direction == RIGHT) {
 				this.moveRight(boi);
 			}
 			else {
 				this.stay(boi);
 			}
+			
 		}
 		this.displayScores();
 	}
