@@ -3,8 +3,10 @@ package editor;
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
@@ -48,8 +50,17 @@ public class Editor extends JFrame {
 		JMenuItem mntmNewMap = new JMenuItem("New Map");
 		mnFile.add(mntmNewMap);
 		
-		JMenuItem mntmSelectMap = new JMenuItem("Select Map");
-		mnFile.add(mntmSelectMap);
+		JMenuItem mntmOpenMap = new JMenuItem("Open Map");
+		mntmOpenMap.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				JFileChooser c = new JFileChooser();
+				int rVal = c.showOpenDialog(Editor.this);
+				if (rVal == JFileChooser.APPROVE_OPTION) {
+					controller.openMap(c.getSelectedFile().getAbsolutePath());
+				}
+			}
+		});
+		mnFile.add(mntmOpenMap);
 		
 		JMenuItem mntmSaveMap = new JMenuItem("Save Map");
 		mntmSaveMap.addActionListener(new ActionListener() {
