@@ -21,7 +21,7 @@ public class Reader {
 	 * @param fileName is the name of the file that will be scanned.
 	 * @return a Map object that contains the map from the scanned file.
 	 */
-	public Map getMap(String fileName) {
+	public static Map getMap(String fileName) {
 		File file = new File(fileName);
 		Scanner scanner;
 		try {

@@ -12,7 +12,6 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import java.awt.event.ActionListener;
-import java.io.File;
 import java.awt.event.ActionEvent;
 
 public class Editor extends JFrame {
