@@ -20,19 +20,23 @@ public class Model {
 	private static final int DAVE = 8;
 	
 	private Editor editor;
+	private Display display;
 	private Map map;
 	private int tool = SPACE;
 	
 	private String fileName;
 	
 	public Model() {
+		this.setMap("map1.txt");
+	}
+	
+	public void setMap(String fileName) {
 		Reader reader = new Reader();
-		map = reader.getMap("map1.txt");
+		map = reader.getMap(fileName);
 		editor = new Editor(new Controller(this));
 		editor.setVisible(true);
-		Display display = new Display(map);
+		display = new Display(map);
 		editor.setContentPane(display);
-		fileName = "map1.txt";
 		
 		display.addMouseListener(new MouseAdapter() {
 			@Override
@@ -42,6 +46,13 @@ public class Model {
 				add(coordinates[0], coordinates[1]);
 			}
 		});
+	}
+	
+	public void openMap(String fileName) {
+		this.fileName = fileName;
+		Reader reader = new Reader();
+		map = reader.getMap(fileName);
+		display.setMap(map);
 	}
 	
 	public void add(int x, int y) {
