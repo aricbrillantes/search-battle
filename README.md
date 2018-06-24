@@ -1,5 +1,20 @@
 # search-battle
 
+How to run the game:
+- go to the package `game`
+- run `Driver.java`
+
+How to run the editor:
+- go to the package `editor`
+- run `Driver.java`
+
+How to edit your bots:
+- go to the package `bots`
+- open your `Bot<name>.java`
+- edit `think()`
+- you can add more functions if you want but you can only change that one file
+- you can also only access `blocks[][]` to help your Bot nagivate through the map
+
 There is a new ways to move your Bot now. Here are all the ways to move:
 
 changing the int variable direction to UP/DOWN/LEFT/RIGHT/STAY. This will move your bot to the direction to direction was set to every time the game updates
