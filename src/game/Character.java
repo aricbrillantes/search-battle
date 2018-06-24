@@ -1,6 +1,6 @@
 package game;
 
-import java.awt.Color;
+import java.util.ArrayList;
 
 public class Character extends Block implements Runnable {
 
@@ -9,7 +9,12 @@ public class Character extends Block implements Runnable {
 	protected static final int LEFT = 2;
 	protected static final int RIGHT = 3;
 	protected static final int STAY = 4;
+	protected static final int NONE = 4;
+	
 	protected int direction = STAY;
+	protected int move = NONE;
+	protected ArrayList<Integer> moveList;
+	
 	protected Block[][] blocks;
 	protected int points;
 	
@@ -22,9 +27,9 @@ public class Character extends Block implements Runnable {
 	public Character(Block[][] blocks, int x, int y) {
 		this.blocks = blocks;
 		super.setLocation(x, y);
-		this.start();
 		this.points = 0;
 		this.direction = STAY;
+		this.moveList = new ArrayList<Integer> ();
 	}
 	
 	/**
@@ -66,12 +71,22 @@ public class Character extends Block implements Runnable {
 	 * This function returns the direction of where the Character wants to go.
 	 * @return
 	 */
-	public int direction() {
+	public int getDirection() {
 		return this.direction;
 	}
 	
 	public int getPoints() {
 		return this.points;
+	}
+	
+	public int getMove() {
+		int move = this.move;
+		this.move = NONE;
+		return move;
+	}
+	
+	public ArrayList<Integer> getMoveList() {
+		return this.moveList;
 	}
 
 }
