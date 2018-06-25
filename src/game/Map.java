@@ -25,7 +25,6 @@ public class Map {
 	
 	public Map(int height, int width) {
 		this.setup(height, width);
-//		this.startGame();
 	}
 	
 	/**
@@ -38,31 +37,12 @@ public class Map {
 		this.width = width;
 		this.blocks = new Block[this.width][this.height];
 		this.characters = new ArrayList<Character>();
-//		this.setMap();
 	}
+	
 	
 	/**
-	 * This function sets up the game map and it's entities.
+	 * This function toggles pause/play of the game.
 	 */
-	public void setMap() {
-		// add walls
-		int x, y;
-		for(y = 0; y < this.height; y++) {
-			for(x = 0; x < this.width; x++) {
-				if(y == 0 || x == 0 || y == this.height - 1 || x == this.width - 1) {
-					this.addWall(x, y);
-				}
-			}
-		}
-
-		this.addCharacter(2, 2);
-		this.addCharacter(2, 2);
-		this.addCharacter(2, 2);
-		this.addCharacter(2, 2);
-		characters.add(new Character(this.blocks, 10, 10));
-		characters.get(characters.size() - 1).setColor(Color.GREEN);
-	}
-	
 	public void togglePause() {
 		pause = !pause;
 	}
@@ -82,7 +62,6 @@ public class Map {
 	                	update();
 	                    try {Thread.sleep(100);} catch (Exception ex) {}
 	                }
-	                System.out.println("ASJKB");
 				}
 			}
 		});
@@ -91,10 +70,17 @@ public class Map {
 	
 	public void addWall(int x, int y) {
 		this.blocks[x][y] = new Wall();
+		this.blocks[x][y].setLocation(x, y);
 	}
 	
 	public void addSpace(int x, int y) {
 		this.blocks[x][y] = new Block();
+		this.blocks[x][y].setLocation(x, y);
+	}
+	
+	public void addTreasure(int x, int y) {
+		this.blocks[x][y] = new Treasure();
+		this.blocks[x][y].setLocation(x, y);
 	}
 	
 	public void addCharacter(int x, int y) {
@@ -107,10 +93,6 @@ public class Map {
 		characters.add(new Character(this.blocks, x, y));
 		characters.get(characters.size() - 1).setColor(color);
 		blocks[x][y] = characters.get(characters.size() - 1);
-	}
-	
-	public void addTreasure(int x, int y) {
-		this.blocks[x][y] = new Treasure();
 	}
 	
 	public void addEnemy(int x, int y) {
@@ -162,21 +144,17 @@ public class Map {
 	 * This function checks all the Characters and get their requestion movement direction and applies it.
 	 */
 	private void update() {
-		
 		int direction = STAY;
 		
 		for(Character boi : characters) {
 			if(!boi.moveList.isEmpty()) {
-//				System.out.println("movelist");
 				direction = boi.moveList.get(0);
 				boi.moveList.remove(0);
 			}
 			else if(boi.move != NONE) {
-//				System.out.println("move");
 				direction = boi.getMove();
 			}
 			else {
-//				System.out.println("direction");
 				direction = boi.getDirection();
 			}
 			
