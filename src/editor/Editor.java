@@ -10,6 +10,8 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -48,6 +50,13 @@ public class Editor extends JFrame {
 		menuBar.add(mnFile);
 		
 		JMenuItem mntmNewMap = new JMenuItem("New Map");
+		mntmNewMap.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+		        int width = Integer.parseInt(JOptionPane.showInputDialog("Input width for new map: "));
+		        int height = Integer.parseInt(JOptionPane.showInputDialog("Input height for new map: "));
+		        controller.newMap(width, height);
+			}
+		});
 		mnFile.add(mntmNewMap);
 		
 		JMenuItem mntmOpenMap = new JMenuItem("Open Map");
@@ -55,7 +64,7 @@ public class Editor extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				JFileChooser c = new JFileChooser();
 				int rVal = c.showOpenDialog(Editor.this);
-				if (rVal == JFileChooser.APPROVE_OPTION) {
+				if(rVal == JFileChooser.APPROVE_OPTION) {
 					controller.openMap(c.getSelectedFile().getAbsolutePath());
 				}
 			}

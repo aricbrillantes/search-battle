@@ -8,6 +8,7 @@ import javax.swing.JFrame;
 import game.Display;
 import game.Map;
 import game.Reader;
+import game.Wall;
 
 public class Model {
 
@@ -56,6 +57,17 @@ public class Model {
 				add(coordinates[0], coordinates[1]);
 			}
 		});
+	}
+	
+	public void newMap(int width, int height) {
+		Map map = new Map(height, width);
+		for(int y = 0; y < map.getHeight(); y++) {
+			for(int x = 0; x < map.getWidth(); x++) {
+				map.getBlocks()[x][y] = new Wall();
+			}
+		}
+		this.map = map;
+		display.setMap(map);
 	}
 	
 	public void openMap(String fileName) {
