@@ -49,6 +49,7 @@ public class Model {
 				add(coordinates[0], coordinates[1]);
 			}
 		});
+		
 		display.addMouseMotionListener(new MouseAdapter() {
 			@Override
 			public void mouseDragged(MouseEvent me) {

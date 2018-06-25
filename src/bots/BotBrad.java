@@ -27,6 +27,7 @@ public class BotBrad extends Character {
 		int row=blocks.length;
 		int col=blocks[0].length;
 		Block[][] Treasures  = new Block[row][col];
+		Block[][] previousPath  = new Block[row][col];
 		int rise, run;
 		float distance;
 		float bestdistanceTreasure=10000000;
@@ -167,25 +168,33 @@ public class BotBrad extends Character {
 		// Move Choose
 		for(int i=0; i<Dir.length; i++)
 		{
+			System.out.println("Move choose");
 			if(bestdistanceMove>=Dir[i])
 			{
+//				System.out.println("Move "+i);
+//				System.out.println("Press Any Key To Continue...");
+//		        new java.util.Scanner(System.in).nextLine();
 				bestdistanceMove=Dir[i];
-				if(i==0) 
+				previousPath[x][y]=blocks[x][y];
+				
+				if(i==0 && (blocks[x][y+1]!=previousPath[x][y])) 
 					move = DOWN;
-				else if(i==1)
+				else if(i==1 && (blocks[x][y-1]!=previousPath[x][y]))
 					move = UP;
-				else if(i==2)
+				else if(i==2 && (blocks[x+1][y]!=previousPath[x][y]))
 					move = RIGHT;
-				else if(i==3)
+				else if(i==3 && (blocks[x-1][y]!=previousPath[x][y]))
 					move = LEFT;
 				else
 					move = NONE;
+				
+				System.out.println("i="+i+", move="+move);
 			}
 		}
 		direction = move;
 		System.out.println("Go "+ direction);
 
-		
+			
 //		moveList.add(UP);
 //		moveList.add(DOWN);
 //		moveList.add(LEFT);
