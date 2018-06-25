@@ -30,4 +30,8 @@ public class Model {
 		map.startGame();
 	}
 	
+	public void togglePause() {
+		map.togglePause();
+	}
+	
 }
