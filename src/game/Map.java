@@ -19,8 +19,8 @@ public class Map {
 	
 	private int height;
 	private int width;
+	private Boolean pause = false;
 	private Block[][] blocks;
-
 	private ArrayList<Character> characters;
 	
 	public Map(int height, int width) {
@@ -63,6 +63,10 @@ public class Map {
 		characters.get(characters.size() - 1).setColor(Color.GREEN);
 	}
 	
+	public void togglePause() {
+		pause = !pause;
+	}
+	
 	/**
 	 * This function starts a thread that will run continuously updating the game.
 	 */
@@ -73,10 +77,13 @@ public class Map {
 		Thread game = new Thread(new Runnable() {
 			@Override
 			public void run() {
-                while (true) {
-                	update();
-                    try {Thread.sleep(100);} catch (Exception ex) {}
-                }
+				while(true) {
+	                while(!pause) {
+	                	update();
+	                    try {Thread.sleep(100);} catch (Exception ex) {}
+	                }
+	                System.out.println("ASJKB");
+				}
 			}
 		});
 		game.start();

@@ -11,5 +11,9 @@ public class Controller {
 	public void openMap(String fileName) {
 		model.openMap(fileName);
 	}
+	
+	public void togglePause() {
+		model.togglePause();
+	}
 
 }
