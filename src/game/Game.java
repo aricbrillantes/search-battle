@@ -1,14 +1,11 @@
 package game;
 
 import java.awt.BorderLayout;
-import java.awt.EventQueue;
 
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-
-import editor.Editor;
 
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
@@ -18,6 +15,7 @@ import java.awt.event.ActionEvent;
 
 public class Game extends JFrame {
 
+	private static final long serialVersionUID = 2832894152970309904L;
 	private JPanel contentPane;
 
 	/**
