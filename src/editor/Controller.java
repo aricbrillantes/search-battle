@@ -22,6 +22,10 @@ public class Controller {
 		model.saveMap();
 	}
 	
+	public void newMap(int width, int height) {
+		model.newMap(width, height);
+	}
+	
 	public void openMap(String fileName) {
 		model.openMap(fileName);
 	}
