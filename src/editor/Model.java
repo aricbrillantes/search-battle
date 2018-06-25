@@ -3,6 +3,8 @@ package editor;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+import javax.swing.JFrame;
+
 import game.Display;
 import game.Map;
 import game.Reader;
@@ -26,7 +28,8 @@ public class Model {
 	private String fileName;
 	
 	public Model() {
-		this.setMap("map.txt");
+		fileName = "map.txt";
+		this.setMap(fileName);
 	}
 	
 	public void setMap(String fileName) {
@@ -35,6 +38,7 @@ public class Model {
 		editor.setVisible(true);
 		display = new Display(map);
 		editor.setContentPane(display);
+		editor.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		
 		display.addMouseListener(new MouseAdapter() {
 			@Override

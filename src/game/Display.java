@@ -2,8 +2,6 @@ package game;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
 import javax.swing.JComponent;
@@ -11,7 +9,9 @@ import javax.swing.JComponent;
 import bots.BotAndy;
 
 public class Display extends JComponent {
-	
+
+	private static final long serialVersionUID = 7880302203922105415L;
+
 	private Map map;
 	
 	private int height;
