@@ -48,6 +48,14 @@ public class Model {
 				add(coordinates[0], coordinates[1]);
 			}
 		});
+		display.addMouseMotionListener(new MouseAdapter() {
+			@Override
+			public void mouseDragged(MouseEvent me) {
+				int[] coordinates = display.getCoordinates(me.getX(), me.getY());
+				System.out.println(coordinates[0] + ", " + coordinates[1]);
+				add(coordinates[0], coordinates[1]);
+			}
+		});
 	}
 	
 	public void openMap(String fileName) {
