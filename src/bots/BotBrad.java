@@ -163,26 +163,26 @@ public class BotBrad extends Character {
 			distance=rise/run;
 			Dir[3]=distance;
 		}
-		
+		int move=NONE;
 		// Move Choose
 		for(int i=0; i<Dir.length; i++)
 		{
-			if(bestdistanceMove>Dir[i])
+			if(bestdistanceMove>=Dir[i])
 			{
 				bestdistanceMove=Dir[i];
 				if(i==0) 
-					direction = DOWN;
+					move = DOWN;
 				else if(i==1)
-					direction = UP;
+					move = UP;
 				else if(i==2)
-					direction = RIGHT;
+					move = RIGHT;
 				else if(i==3)
-					direction = LEFT;
+					move = LEFT;
 				else
-					direction = NONE;
+					move = NONE;
 			}
 		}
-		
+		direction = move;
 		System.out.println("Go "+ direction);
 
 		
