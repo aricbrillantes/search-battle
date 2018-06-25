@@ -6,7 +6,6 @@ import java.awt.EventQueue;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
@@ -16,6 +15,7 @@ import java.awt.event.ActionEvent;
 
 public class Editor extends JFrame {
 	
+	private static final long serialVersionUID = 5374292351259402378L;
 	private JPanel contentPane;
 
 	/**
