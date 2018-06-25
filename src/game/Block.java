@@ -30,14 +30,14 @@ public class Block {
 	 * This function returns the x-coordinate of the block.
 	 * @return
 	 */
-	protected int getX() {
+	public int getX() {
 		return x;
 	}
 
 	/*
 	 * This function returns the y-coordinate of the block.
 	 */
-	protected int getY() {
+	public int getY() {
 		return y;
 	}
 	
