@@ -20,8 +20,10 @@ public class Map {
 	private int height;
 	private int width;
 	private Boolean pause = false;
+	private Boolean stop = false;
 	private Block[][] blocks;
 	private ArrayList<Character> characters;
+	private Thread thread;
 	
 	public Map(int height, int width) {
 		this.setup(height, width);
@@ -54,18 +56,27 @@ public class Map {
 		for(Character c : characters) {
 			c.start();
 		}
-		Thread game = new Thread(new Runnable() {
+		thread = new Thread(new Runnable() {
 			@Override
 			public void run() {
-				while(true) {
+				Boolean running = true;
+				while(running) {
 	                while(!pause) {
+		                if(stop) {
+		                	pause = true;
+		                	running = false;
+		                }
 	                	update();
 	                    try {Thread.sleep(100);} catch (Exception ex) {}
 	                }
 				}
 			}
 		});
-		game.start();
+		thread.start();
+	}
+	
+	public void endGame() {
+		stop = true;
 	}
 	
 	public void addWall(int x, int y) {
@@ -249,14 +260,18 @@ public class Map {
 		int x = character.getX();
 		int y = character.getY();
 		this.blocks[x][y] = character;
+		character.setLocation(x, y);
 	}
 	
 	/**
 	 * This function prints the scores of all the Characters in the Game.
 	 */
 	public void printScores() {
+		System.out.println(characters.size());
 		for(Character c : characters) {
-			System.out.println(c.getClass() + ": " + c.getPoints());
+			System.out.print(c.getClass() + ": " + c.getPoints());
+			System.out.print(" (" + c.getX() + ", " + c.getY() + ")");
+			System.out.println();
 		}
 		System.out.println();
 	}
