@@ -145,7 +145,6 @@ public class Map {
 	 */
 	private void update() {
 		int direction = STAY;
-		
 		for(Character boi : characters) {
 			if(!boi.moveList.isEmpty()) {
 				direction = boi.moveList.get(0);
@@ -158,7 +157,6 @@ public class Map {
 				direction = boi.getDirection();
 			}
 			
-
 			if(direction == UP) {
 				this.moveUp(boi);
 			}
@@ -176,7 +174,7 @@ public class Map {
 			}
 			
 		}
-//		this.displayScores();
+		printScores(); // this can be commented out to not show the scores
 	}
 	
 	/**
@@ -253,8 +251,22 @@ public class Map {
 		this.blocks[x][y] = character;
 	}
 	
+	/**
+	 * This function prints the scores of all the Characters in the Game.
+	 */
+	public void printScores() {
+		for(Character c : characters) {
+			System.out.println(c.getClass() + ": " + c.getPoints());
+		}
+		System.out.println();
+	}
+	
 	public Block[][] getBlocks() {
 		return blocks;
+	}
+	
+	public ArrayList<Character> getCharacters() {
+		return characters;
 	}
 	
 	public int getHeight() {
