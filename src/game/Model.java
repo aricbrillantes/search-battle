@@ -24,6 +24,8 @@ public class Model {
 	}
 	
 	public void openMap(String fileName) {
+		map.endGame();
+		map = null;
 		map = Reader.getMap(fileName);
 		display.setMap(map);
 		game.setContentPane(display);
