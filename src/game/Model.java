@@ -21,6 +21,7 @@ public class Model {
 		display.setVisible(true);
 		game.setVisible(true);
 		game.setExtendedState(JFrame.MAXIMIZED_BOTH);
+		game.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 	}
 	
 	public void openMap(String fileName) {
@@ -34,6 +35,10 @@ public class Model {
 	
 	public void togglePause() {
 		map.togglePause();
+	}
+	
+	public void exit() {
+		map.endGame();
 	}
 	
 }
