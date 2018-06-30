@@ -48,19 +48,19 @@ public class BotBrad extends Character {
 					if(blocks[j][i] instanceof Wall)
 					{
 						Map[j][i] = 1;
-						System.out.println("wall "+Map[j][i]);
+//						System.out.println("wall "+Map[j][i]);
 					}
 					
 					else if(blocks[j][i] instanceof Treasure)
 					{
 						Map[j][i] = 2;
-						System.out.println("treasure "+Map[j][i]);
+//						System.out.println("treasure "+Map[j][i]);
 					}
 					
 					else
 					{
 						Map[j][i] = 4;
-					System.out.println("space "+Map[j][i]);
+//					System.out.println("space "+Map[j][i]);
 					}
 				}
 					
@@ -68,6 +68,17 @@ public class BotBrad extends Character {
 			flagmap++;
 		}
 	
+		System.out.println("Map: ");
+		for(int i=0;i<col;i++)
+		{
+			for(int j=0;j<row;j++)
+			{
+				System.out.print(Map[j][i]);
+				
+			}
+			System.out.println("");
+				
+		}
 		
 		return Map;
 	}
@@ -79,16 +90,15 @@ public class BotBrad extends Character {
 	public boolean searchPath(int[][] map, int x, int y, List<Integer> path)	
 	{
 		
-		System.out.println("pasok sa searchpath");
-		System.out.println("currently at x"+x+", y"+y+" at "+map[x][y]);
+//		System.out.println("pasok sa searchpath");
+//		System.out.println("currently at x"+x+", y"+y+" at "+map[x][y]);
 		
 		if(map[x][y] == 2)
 		{
 			path.add(x);
 			path.add(y);
-			System.out.println("searchpath found");
+//			System.out.println("searchpath found");
 			return true;
-			
 		}
 		
 		if(map[x][y]==4)
@@ -102,7 +112,7 @@ public class BotBrad extends Character {
 			{
 				path.add(x);
 				path.add(y);
-				System.out.println("searchpath 1");
+//				System.out.println("searchpath 1");
 				return true;
 				
 			}
@@ -114,7 +124,7 @@ public class BotBrad extends Character {
 			{
 				path.add(x);
 				path.add(y);
-				System.out.println("searchpath 2"); 
+//				System.out.println("searchpath 2"); 
 				return true;
 				
 			}
@@ -126,7 +136,7 @@ public class BotBrad extends Character {
 			{
 				path.add(x);
 				path.add(y);
-				System.out.println("searchpath 3");
+//				System.out.println("searchpath 3");
 				return true;
 				
 			}
@@ -138,7 +148,7 @@ public class BotBrad extends Character {
 			{
 				path.add(x);
 				path.add(y);
-				System.out.println("searchpath 4");
+//				System.out.println("searchpath 4");
 				return true;
 				
 			}
@@ -158,8 +168,9 @@ public class BotBrad extends Character {
 		int row=blocks.length;
 		int col=blocks[0].length;
 		
-		int[][] Map  = new int[row][col];
+		int[][] Map = new int[row][col];
 		Block[][] previousPath  = new Block[row][col];
+		List<Integer> Treasures = new ArrayList<Integer>();
 		
 		int rise, run;
 		float distance;
@@ -185,6 +196,8 @@ public class BotBrad extends Character {
 					else if(blocks[j][i] instanceof Treasure)
 					{
 						Map[j][i] = 2;
+						Treasures.add(i);
+						Treasures.add(j);
 //						System.out.println("treasure "+Map[j][i]);
 						run=j-x;
 						rise=i-y;
@@ -199,7 +212,7 @@ public class BotBrad extends Character {
 							bestdistanceTreasure=distance;
 							TreasureX=j;
 							TreasureY=i;
-							System.out.println("treasureX "+ TreasureX +", TreasureY "+TreasureY);
+//							System.out.println("treasureX "+ TreasureX +", TreasureY "+TreasureY+"\n");
 						}
 					}
 					
@@ -397,28 +410,35 @@ public class BotBrad extends Character {
 //		
 //		direction = (int)(Math.random() * 4);
 
-		
+
 		if(flag2==0)
 		{
 			flag2=1;
 			List<Integer> path = new ArrayList<Integer>();
 			searchPath(getMap(), x, y, path);
 			
-//			System.out.println("path size: "+path.size());
-			System.out.println("path: ");
+			System.out.println("\nTreasures: ");
+			for(int i=0;i<Treasures.size();i+=2)
+				System.out.println(Treasures.get(i+1)+", "+Treasures.get(i));
 			
+			System.out.println("\npath: ");
+			
+			//original path
 //			for(int i=0;i<path.size();i+=2)
 //			{
 //				System.out.println(path.get(i+1)+", "+path.get(i));
 //			}
 			
-			Collections.reverse(path);
+			//reverse path
 //			System.out.println("\n------path 2------\n");
+			Collections.reverse(path);
 		
 			for(int i=0;i<path.size();i+=2)
 			{
+//				UNCOMMENT TO TRACE PATH
+//				System.out.println(path.get(i+1)+", "+path.get(i));
+				
 //				System.out.println("X:"+x+" Y:"+y);
-				System.out.println(path.get(i+1)+", "+path.get(i));
 				
 				if(x+1==(path.get(i+1)))
 				{
@@ -447,6 +467,7 @@ public class BotBrad extends Character {
 //					for(i=y;i>path.get(i+1);i--)
 						moveList.add(UP);
 				}
+				
 			}
 			
 		}
