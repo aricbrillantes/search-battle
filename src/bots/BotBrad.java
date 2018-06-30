@@ -417,9 +417,11 @@ public class BotBrad extends Character {
 			List<Integer> path = new ArrayList<Integer>();
 			searchPath(getMap(), x, y, path);
 			
+			System.out.println(x+", "+y);
+
 			System.out.println("\nTreasures: ");
 			for(int i=0;i<Treasures.size();i+=2)
-				System.out.println(Treasures.get(i+1)+", "+Treasures.get(i));
+//				System.out.println(Treasures.get(i+1)+", "+Treasures.get(i));
 			
 			System.out.println("\npath: ");
 			
@@ -432,38 +434,47 @@ public class BotBrad extends Character {
 			//reverse path
 //			System.out.println("\n------path 2------\n");
 			Collections.reverse(path);
+			
+			int x1 = x;
+			int y1 = y;
 		
 			for(int i=0;i<path.size();i+=2)
 			{
+				
 //				UNCOMMENT TO TRACE PATH
-//				System.out.println(path.get(i+1)+", "+path.get(i));
+				System.out.println(path.get(i+1)+", "+path.get(i));
+				System.out.println("X:"+x1+" Y:"+y1);
 				
 //				System.out.println("X:"+x+" Y:"+y);
 				
-				if(x+1==(path.get(i+1)))
+				if(x1+1==(path.get(i+1)))
 				{
-					System.out.println("right");
+					x1++;
+					System.out.println("right\n");
 //					for(i=x;i<path.get(i);i++)
 						moveList.add(RIGHT);
 				}
 				
-				else if(x-1==(path.get(i+1)))
+				else if(x1-1==(path.get(i+1)))
 				{
-					System.out.println("left");
+					x1--;
+					System.out.println("left\n");
 //					for(i=x;i>path.get(i);i--)
 						moveList.add(LEFT);
 				}
 				
-				else if(y+1==(path.get(i)))
+				else if(y1+1==(path.get(i)))
 				{
-					System.out.println("down");
+					y1++;
+					System.out.println("down\n");
 //					for(i=y;i<path.get(i+1);i++)
 						moveList.add(DOWN);
 				}
 				
-				else if(y-1==(path.get(i)))
+				else if(y1-1==(path.get(i)))
 				{
-					System.out.println("up");
+					y1--;
+					System.out.println("up\n");
 //					for(i=y;i>path.get(i+1);i--)
 						moveList.add(UP);
 				}

@@ -14,7 +14,7 @@ public class Model {
 	
 	public void setJFrame() {
 		game = new Game(new Controller(this));
-		map = Reader.getMap("map.txt");
+		map = Reader.getMap("map2.txt");
 		map.startGame();
 		display = new Display(map);
 		game.setContentPane(display);

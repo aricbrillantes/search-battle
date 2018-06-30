@@ -29,7 +29,7 @@ public class Model {
 	private String fileName;
 	
 	public Model() {
-		fileName = "map.txt";
+		fileName = "map2.txt";
 		this.setMap(fileName);
 	}
 	
