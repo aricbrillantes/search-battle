@@ -35,7 +35,7 @@ public class BotBrad extends Character {
 		recursemap=0;
 		reset=0;
 		flagdis=0;
-		treasureindex=0;
+//		treasureindex=0;
 		flagthink=0;
 		xtemp=0;
 		ytemp=0;
@@ -184,7 +184,6 @@ public class BotBrad extends Character {
 		int[][] Map = new int[row][col];
 		Block[][] previousPath  = new Block[row][col];
 		
-		
 		int rise, run;
 		int distance;
 		float bestdistanceTreasure=10000000;
@@ -232,15 +231,43 @@ public class BotBrad extends Character {
 		}
 		if(flagdis==0)
 		{
-			System.out.println(TreasDis);
+			System.out.println("TreasDis");
+			for(int i=0;i<TreasDis.size();i+=3)
+				System.out.println(TreasDis.get(i)+", "+TreasDis.get(i+1)+", "+TreasDis.get(i+2));
+
 			for(int a=2;a<=TreasDis.size();a+=3)
 				DistanceSorted.add(TreasDis.get(a));
+			
 			Collections.sort(DistanceSorted);
+			
 			System.out.println("DistanceSorted");
-			System.out.println(DistanceSorted);
+//			System.out.println(DistanceSorted);
+			for(int i=0;i<DistanceSorted.size()-1;i++)
+				System.out.println(DistanceSorted.get(i));
+			
 			int b=0;
 			int a=2;
-			while(TreasureSorted.size()!=2*DistanceSorted.size()) {
+			
+//			while(TreasureSorted.size()!=2*DistanceSorted.size()) 
+//			{
+//				if(TreasDis.get(a)==DistanceSorted.get(b)) 
+//				{
+//					TreasureSorted.add(TreasDis.get(a-2));
+//					TreasureSorted.add(TreasDis.get(a-1));
+//					a=2;
+//					b++;
+//				}
+//				a+=3;	
+//			}
+			
+			while(TreasureSorted.size()!=2*DistanceSorted.size()) 
+			{
+				System.out.println("TreasDis size: "+TreasDis.size());
+				System.out.println("DistanceSorted size: "+DistanceSorted.size()+"\n");
+				System.out.println("TreasDis[a]: "+TreasDis.get(a));
+				System.out.println("TreasDis[a-1]: "+TreasDis.get(a-1));
+				System.out.println("TreasDis[a-2]: "+TreasDis.get(a-2));
+				System.out.println("DistanceSorted[b]: "+DistanceSorted.get(b));
 				if(TreasDis.get(a)==DistanceSorted.get(b)) 
 				{
 					TreasureSorted.add(TreasDis.get(a-2));
@@ -250,11 +277,12 @@ public class BotBrad extends Character {
 				}
 				a+=3;	
 			}
+			
 			System.out.println(TreasureSorted);
 			
 			flagdis=1;
 		}
-		System.out.println("size"+Treasures.size()+"index"+treasureindex);
+		System.out.println("size "+Treasures.size()+" index "+treasureindex);
 		if(x == Treasures.get(treasureindex+1) && y == Treasures.get(treasureindex))
 		{
 			System.out.println("repetpls");
