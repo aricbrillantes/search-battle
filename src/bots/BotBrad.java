@@ -293,19 +293,25 @@ public class BotBrad extends Character {
 		}
 //		System.out.println("X:"+x+" Y:"+y+" TreasX:"+Treasures.get(treasureindex+1)+" Treasy:"+Treasures.get(treasureindex));
 		System.out.println("size "+Treasures.size()+" index "+treasureindex+"count"+treasurecount);
-		if((x == Treasures.get(treasureindex+1) && y == Treasures.get(treasureindex)) || treasurefound==1)
+		if(treasureindex+2 < treasurecount*2 ) 
 		{
-			System.out.println("repetpls");
-			treasureindex+=2;
-			System.out.println("trindex"+treasureindex);
-			Map[x][y]=0;
-			flagmap=0;
-			treasurefound=0;
-			flag=0;
-			flag2=0;
-			flagthink=0;
+			if((x == Treasures.get(treasureindex+1) && y == Treasures.get(treasureindex)) || treasurefound==1)
+			{
+				System.out.println("repetpls");
+				if(x == Treasures.get(treasureindex+1) && y == Treasures.get(treasureindex))
+				{
+					treasureindex+=2;
+				}
+				System.out.println("trindex"+treasureindex);
+				Map[x][y]=0;
+				flagmap=0;
+				treasurefound=0;
+				flag=0;
+				flag2=0;
+				flagthink=0;
+			}
 		}
-//		Treasures.size();
+//			Treasures.size();
 		
 		while(treasureindex*2 != treasurecount && flagthink==0)
 		{
