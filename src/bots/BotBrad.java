@@ -21,6 +21,7 @@ public class BotBrad extends Character {
 	public static int treasurecounted;
 	public static int treasureindex;
 	public static int flagthink;
+	public static int treasurefound;
 	public static int xtemp;
 	public static int ytemp;
 	public static int reset;
@@ -35,7 +36,8 @@ public class BotBrad extends Character {
 		recursemap=0;
 		reset=0;
 		flagdis=0;
-//		treasureindex=0;
+		treasureindex=0;
+		treasurefound=0;
 		flagthink=0;
 		xtemp=0;
 		ytemp=0;
@@ -195,6 +197,13 @@ public class BotBrad extends Character {
 		int TreasureX=0, TreasureY=0;
 		//ArrayList<Integer>  = new ArrayList<Integer>();
 		float[] Dir= new float[4];
+		for(int i = 0;i<Treasures.size();i+=2)
+		{
+			if(x==Treasures.get(i+1) && y==Treasures.get(i))
+			{
+				treasurefound=1;
+			}
+		}
 		
 		
 		if(treasurecounted==0)
@@ -282,18 +291,22 @@ public class BotBrad extends Character {
 			
 			flagdis=1;
 		}
-		System.out.println("size "+Treasures.size()+" index "+treasureindex);
-		if(x == Treasures.get(treasureindex+1) && y == Treasures.get(treasureindex))
+//		System.out.println("X:"+x+" Y:"+y+" TreasX:"+Treasures.get(treasureindex+1)+" Treasy:"+Treasures.get(treasureindex));
+		System.out.println("size "+Treasures.size()+" index "+treasureindex+"count"+treasurecount);
+		if((x == Treasures.get(treasureindex+1) && y == Treasures.get(treasureindex)) || treasurefound==1)
 		{
 			System.out.println("repetpls");
 			treasureindex+=2;
+			System.out.println("trindex"+treasureindex);
 			Map[x][y]=0;
 			flagmap=0;
+			treasurefound=0;
 			flag=0;
 			flag2=0;
 			flagthink=0;
 		}
 //		Treasures.size();
+		
 		while(treasureindex*2 != treasurecount && flagthink==0)
 		{
 			if(flag==0)
@@ -429,8 +442,10 @@ public class BotBrad extends Character {
 						
 //					}
 				}
-				System.out.println("END");
+				
 				flagthink=1;
+				System.out.println("END");
+
 				
 				
 				
