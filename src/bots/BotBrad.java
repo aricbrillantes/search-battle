@@ -205,10 +205,23 @@ public class BotBrad extends Character {
 				{
 					TreasureSorted.add(TreasDis.get(a-2));
 					TreasureSorted.add(TreasDis.get(a-1));
+					TreasDis.remove(a);
+					TreasDis.remove(a-1);
+					TreasDis.remove(a-2);
+					
 					a=2;
 					b++;
 				}
-				a+=3;	
+				a+=3;
+				
+				if(TreasDis.size()==3)
+				{
+					TreasureSorted.add(TreasDis.get(0));
+					TreasureSorted.add(TreasDis.get(1));
+				}
+				
+				if(a>TreasDis.size())
+					a=2;
 			}
 			
 			flagdis=1;
