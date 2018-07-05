@@ -5,8 +5,6 @@ import java.util.*;
 import game.Block;
 import game.Character;
 import game.Wall;
-import game.Map;
-import game.Model;
 import game.Treasure;
  
 public class BotBrad extends Character {
@@ -50,161 +48,113 @@ public class BotBrad extends Character {
 		
 		int[][] Map  = new int[row][col];		
 
-		
-		int rise, run;
-		float distance;
-
 		if(flagmap==0)
 		{
+			//read map into 2D array
 			for(int i=0;i<col;i++)
 			{
 				for(int j=0;j<row;j++)
 				{
+					//wall = 1
 					if(blocks[j][i] instanceof Wall)
-					{
 						Map[j][i] = 1;
-//						System.out.println("wall "+Map[j][i]);
-					}
-					
+										
+					//treasure = 3
 					else if(blocks[j][i] instanceof Treasure)
-					{
 						Map[j][i] = 2;
-//						System.out.println("treasure "+Map[j][i]);
-					}
 					
+					//"unvisited" node
 					else
-					{
 						Map[j][i] = 4;
-//					System.out.println("space "+Map[j][i]);
-					}
 				}
-					
 			}
 			flagmap++;
 		}
-	
-		System.out.println("Map: ");
-		for(int i=0;i<col;i++)
-		{
-			for(int j=0;j<row;j++)
-			{
-				System.out.print(Map[j][i]);
-				
-			}
-			System.out.println("");
-				
-		}
-		
 		return Map;
 	}
 	
-	
-	//visited = 3
+	//visited node = 3
 	//not visited = 4
-	
-	public boolean searchPath(int[][] map, int x, int y, List<Integer> path)	
+	public boolean depthFirst(int[][] map, int x, int y, List<Integer> path)	
 	{
-		
-//		System.out.println("pasok sa searchpath");
-//		System.out.println("currently at x"+x+", y"+y+" at "+map[x][y]);
-		
-		if(map[x][y] == 2)
+		//if target(treasure) has been found
+		if(map[x][y]==2)
 		{
 			path.add(x);
 			path.add(y);
-//			System.out.println("searchpath found");
 			return true;
 		}
 		
 		if(map[x][y]==4)
 		{
+			//mark current position as visited
 			map[x][y]=3;
 			
-			int dx=-1;
-			int dy=0;
-			
-			if(searchPath(map, x+dx,y+dy,path))
+			/*
+				the if statements here will visit the neighbor positions recursively to find a path
+				
+				if a path to the next treasure was found, the "path" list will be filled 
+				with the coordinates of all positions of the path
+			*/
+			 
+			//check left
+			if(depthFirst(map, x-1,y,path))
 			{
 				path.add(x);
 				path.add(y);
-//				System.out.println("searchpath 1");
 				return true;
-				
 			}
 			
-			dx=1;
-			dy=0;
-			
-			if(searchPath(map, x+dx,y+dy,path))
+			//check right
+			if(depthFirst(map, x+1,y,path))
 			{
 				path.add(x);
 				path.add(y);
-//				System.out.println("searchpath 2"); 
 				return true;
-				
 			}
 			
-			dx=0;
-			dy=-1;
-			
-			if(searchPath(map, x+dx,y+dy,path))
+			//check up
+			if(depthFirst(map, x,y-1,path))
 			{
 				path.add(x);
 				path.add(y);
-//				System.out.println("searchpath 3");
 				return true;
-				
 			}
 			
-			dx=0;
-			dy=1;
-			
-			if(searchPath(map, x+dx,y+dy,path))
+			//check down
+			if(depthFirst(map, x,y+1,path))
 			{
 				path.add(x);
 				path.add(y);
-//				System.out.println("searchpath 4");
 				return true;
-				
 			}
-			
 		}
-		
 		return false;
 	}
-	
 	
 	@Override
 	public void think() 
 	{
-//		flag=0;
-//		flag2=0;
-		System.out.println("THINK");
 		int row=blocks.length;
 		int col=blocks[0].length;
 		
 		int[][] Map = new int[row][col];
-		Block[][] previousPath  = new Block[row][col];
 		
 		int rise, run;
 		int distance;
-		float bestdistanceTreasure=10000000;
-		float bestdistanceMove=10000000;
-		ArrayList<Integer> TreasDis = new ArrayList<Integer>();
+		
+		// array of treasure coordinates with their distances (x,y,distance)
+		ArrayList<Integer> TreasDis = new ArrayList<Integer>();		
+		// array of sorted distances of each treasure based on TreasDis
 		ArrayList<Integer> DistanceSorted = new ArrayList<Integer>();
+		// array of sorted treasures based on DistanceSorted
 		ArrayList<Integer> TreasureSorted = new ArrayList<Integer>();
 		
-		int TreasureX=0, TreasureY=0;
-		//ArrayList<Integer>  = new ArrayList<Integer>();
-		float[] Dir= new float[4];
 		for(int i = 0;i<Treasures.size();i+=2)
 		{
 			if(x==Treasures.get(i+1) && y==Treasures.get(i))
-			{
 				treasurefound=1;
-			}
 		}
-		
 		
 		if(treasurecounted==0)
 		{
@@ -214,25 +164,24 @@ public class BotBrad extends Character {
 				{
 					if(blocks[j][i] instanceof Treasure)
 					{
+						//add x and y coordinates of treasure
 						Treasures.add(i);
 						Treasures.add(j);
 						treasurecount++;
 						run=j-x;
 						rise=i-y;
-						if(run<0) {
+						
+						if(run<0)
 							run*=-1;
-						}
-						if(rise<0) {
+						
+						if(rise<0) 
 							rise*=-1;
-						}
+						
+						//add distance
 						distance=rise+run;
 						TreasDis.add(j);
-						System.out.println("added j"+j);
 						TreasDis.add(i);
-						System.out.println("added i"+i);
 						TreasDis.add(distance);
-							System.out.println("treasureX "+ j +", TreasureY "+i+"\n");
-						System.out.println("treasure count: "+treasurecount);
 					}
 				}
 			}
@@ -240,43 +189,18 @@ public class BotBrad extends Character {
 		}
 		if(flagdis==0)
 		{
-			System.out.println("TreasDis");
-			for(int i=0;i<TreasDis.size();i+=3)
-				System.out.println(TreasDis.get(i)+", "+TreasDis.get(i+1)+", "+TreasDis.get(i+2));
-
+			//add distances into DistanceSorted for sorting
 			for(int a=2;a<=TreasDis.size();a+=3)
 				DistanceSorted.add(TreasDis.get(a));
 			
 			Collections.sort(DistanceSorted);
-			
-			System.out.println("DistanceSorted");
-//			System.out.println(DistanceSorted);
-			for(int i=0;i<DistanceSorted.size()-1;i++)
-				System.out.println(DistanceSorted.get(i));
-			
+						
 			int b=0;
 			int a=2;
-			
-//			while(TreasureSorted.size()!=2*DistanceSorted.size()) 
-//			{
-//				if(TreasDis.get(a)==DistanceSorted.get(b)) 
-//				{
-//					TreasureSorted.add(TreasDis.get(a-2));
-//					TreasureSorted.add(TreasDis.get(a-1));
-//					a=2;
-//					b++;
-//				}
-//				a+=3;	
-//			}
-			
+						
 			while(TreasureSorted.size()!=2*DistanceSorted.size()) 
-			{
-				System.out.println("TreasDis size: "+TreasDis.size());
-				System.out.println("DistanceSorted size: "+DistanceSorted.size()+"\n");
-				System.out.println("TreasDis[a]: "+TreasDis.get(a));
-				System.out.println("TreasDis[a-1]: "+TreasDis.get(a-1));
-				System.out.println("TreasDis[a-2]: "+TreasDis.get(a-2));
-				System.out.println("DistanceSorted[b]: "+DistanceSorted.get(b));
+			{	
+				//add treasures to TreasureSorted for sorting	
 				if(TreasDis.get(a)==DistanceSorted.get(b)) 
 				{
 					TreasureSorted.add(TreasDis.get(a-2));
@@ -287,22 +211,16 @@ public class BotBrad extends Character {
 				a+=3;	
 			}
 			
-			System.out.println(TreasureSorted);
-			
 			flagdis=1;
 		}
-//		System.out.println("X:"+x+" Y:"+y+" TreasX:"+Treasures.get(treasureindex+1)+" Treasy:"+Treasures.get(treasureindex));
-		System.out.println("size "+Treasures.size()+" index "+treasureindex+"count"+treasurecount);
+		
 		if(treasureindex+2 < treasurecount*2 ) 
 		{
 			if((x == Treasures.get(treasureindex+1) && y == Treasures.get(treasureindex)) || treasurefound==1)
 			{
-				System.out.println("repetpls");
 				if(x == Treasures.get(treasureindex+1) && y == Treasures.get(treasureindex))
-				{
 					treasureindex+=2;
-				}
-				System.out.println("trindex"+treasureindex);
+				
 				Map[x][y]=0;
 				flagmap=0;
 				treasurefound=0;
@@ -311,155 +229,92 @@ public class BotBrad extends Character {
 				flagthink=0;
 			}
 		}
-//			Treasures.size();
 		
 		while(treasureindex*2 != treasurecount && flagthink==0)
 		{
 			if(flag==0)
 			{
+				//re-initialize map array
 				for(int j=0;j<row;j++)
 				{
 					for(int i=0;i<col;i++)
 					{
 						if(blocks[j][i] instanceof Wall)
-						{
 							Map[j][i] = 1;
-	//						System.out.println("wall "+Map[j][i]);
-						}
 						
 						else if(blocks[j][i] instanceof Treasure)
-						{
 							Map[j][i] = 2;
-//							System.out.println("treasure "+Map[j][i]);
-							
-						}
-						
-						
+								
 						else
-						{
 							Map[j][i] = 0;
-	//						System.out.println("space "+Map[j][i]);
-						}
-							
 					}
 				}
 				flag=1;
 			}
-		
 			
-	
-	
 			if(flag2==0)
 			{
-				
-				List<Integer> path = new ArrayList<Integer>();
+				ArrayList<Integer> path = new ArrayList<Integer>();
 				flag2=1;
+				
 				if(xtemp==0)
-				{
-					
-					searchPath(getMap(), x, y, path);
-				}
+					depthFirst(getMap(), x, y, path);
+				
 				else
-				{
-//					List<Integer> path = new ArrayList<Integer>();
-					searchPath(getMap(), xtemp, ytemp, path);
-				}
-				System.out.println(x+", "+y);
-	
-				System.out.println("\nTreasures: ");
-				for(int i=0;i<Treasures.size();i+=2)
-					System.out.println(Treasures.get(i+1)+", "+Treasures.get(i));
+					depthFirst(getMap(), xtemp, ytemp, path);
 				
-				System.out.println("\npath: ");
-				
-				//original path
-	//			for(int i=0;i<path.size();i+=2)
-	//			{
-	//				System.out.println(path.get(i+1)+", "+path.get(i));
-	//			}
-				
-				//reverse path
-	//			System.out.println("\n------path 2------\n");
 				Collections.reverse(path);
 				
-				int x1 = x;
-				int y1 = y;
+				int x1=x;
+				int y1=y;
 			
 				for(int i=0;i<path.size();i+=2)
 				{
 					
-	//				UNCOMMENT TO TRACE PATH
-					System.out.println(path.get(i+1)+", "+path.get(i));
-					System.out.println("X:"+x1+" Y:"+y1);
+					//UNCOMMENT TO TRACE PATH
+					//System.out.println(path.get(i+1)+", "+path.get(i));
 					
-	//				System.out.println("X:"+x+" Y:"+y);
-					
+					//the if statements here will traverse the path array and add moves
+					  
+					//if next coordinate is to the right of current position, add right to move list
 					if(x1+1==(path.get(i+1)))
 					{
 						x1++;
-						System.out.println("right\n");
-	//					for(i=x;i<path.get(i);i++)
-							moveList.add(RIGHT);
+						//System.out.println("right\n");
+						moveList.add(RIGHT);
 					}
 					
+					//if next coordinate is to the left of current position, add left to move list
 					else if(x1-1==(path.get(i+1)))
 					{
 						x1--;
-						System.out.println("left\n");
-	//					for(i=x;i>path.get(i);i--)
-							moveList.add(LEFT);
+						//System.out.println("left\n");
+						moveList.add(LEFT);
 					}
 					
+					//if next coordinate is below current position, add down to move list
 					else if(y1+1==(path.get(i)))
 					{
 						y1++;
-						System.out.println("down\n");
-	//					for(i=y;i<path.get(i+1);i++)
-							moveList.add(DOWN);
+						//System.out.println("down\n");
+						moveList.add(DOWN);
 					}
 					
+					//if next coordinate is above current position, add up to move list
 					else if(y1-1==(path.get(i)))
 					{
 						y1--;
-						System.out.println("up\n");
-	//					for(i=y;i>path.get(i+1);i--)
-							moveList.add(UP);
+						//System.out.println("up\n");
+						moveList.add(UP);
 					}
 					
-//					if(Map[x1][y1] == 2)
-//					{
-//						System.out.println("MAP[X][Y] "+Map[x1][y1]);
-//						Map[x1][y1]=0;
-//						System.out.println("MAP[X][Y] "+Map[x1][y1]);
-//						
-//						System.out.println("Map 2: ");
-//						for(i=0;i<col;i++)
-//						{
-//							for(int j=0;j<row;j++)
-//							{
-//								System.out.print(Map[j][i]);
-//								
-//							}
-//							System.out.println("");
-//								
-//						}
 						xtemp=x1;
 						ytemp=y1;
-						
-//					}
 				}
 				
 				flagthink=1;
-				System.out.println("END");
 
-				
-				
-				
 			}
-			System.out.println("think");
-		///
 		}
-		
-
 	}
 }
